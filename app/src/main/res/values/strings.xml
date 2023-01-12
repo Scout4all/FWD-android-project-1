@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Shoe Store</string>
+    <string name="login_fragment">Login</string>
+</resources>
