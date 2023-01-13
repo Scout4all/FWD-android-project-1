@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import me.bigad.shoestore.R
 import me.bigad.shoestore.databinding.FragmentWelcomeBinding
 
@@ -24,8 +25,12 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_welcome, container, false)
+        val loginSafeVarargs by navArgs<WelcomeFragmentArgs>()
 
-        viewModel = ViewModelProvider(this).get(WelcomeViewModel::class.java)
+       var welcomeViewModelFactory = WelcomeViewModelFacotry(loginSafeVarargs.email)
+        viewModel = ViewModelProvider(this,welcomeViewModelFactory).get(WelcomeViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
 
 //ToDo pass logged in data to view model factory with safe args
 
