@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="label_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_small</item>
+        <item name="android:layout_marginEnd">@dimen/margin_small</item>
+        <item name="android:fontFamily">@font/mitr</item>
+        <item name="android:textSize">@dimen/font_big</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="button_style" parent="label_style">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="headline_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/mitr</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="android:textSize">@dimen/font_headline</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="body_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="android:fontFamily">@font/mitr</item>
+        <item name="android:textSize">@dimen/font_big</item>
+    </style>
+
+    <style name="fab_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_big</item>
+        <item name="android:layout_marginBottom">@dimen/margin_big</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">@dimen/margin_big</item>
+    </style>
+</resources>

@@ -59,7 +59,8 @@ dependencies {
 
     //timber to better logging errors
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
+    //add card view to better showing shoes list
+    implementation("androidx.cardview:cardview:1.0.0")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

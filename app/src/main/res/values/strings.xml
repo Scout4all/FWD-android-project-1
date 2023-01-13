@@ -1,4 +1,31 @@
 <resources>
     <string name="app_name">Shoe Store</string>
     <string name="login_fragment">Login</string>
+    <string name="instructions">Instructions</string>
+    <string name="shoes_list">Shoes List</string>
+    <string name="shoe_details">Shoe Details</string>
+    <string name="welcome">Welcome</string>>
+    <string name="welcome_message">Welcome to shoes app</string>
+    <string name="it_is_great_to_see_you_again">you have been logged in successfully
+        \n It is great to see you again %s </string>
+    <string name="instructions_messages">
+        • Login with your email address and password or create account \n
+        • Move To Shoe list screen \n
+        • you can see all added shoes from shoe list screen \n
+        • you can add new shoe from add shoe button \n
+    </string>
+    <string name="email_et_hint">Email@domain.com</string>
+    <string name="password_label">Password</string>
+    <string name="email_label">Email</string>
+    <string name="login">Login</string>
+    <string name="new_account">New Account</string>
+    <string name="save">Save</string>
+    <string name="shoe_name">Shoe Name</string>
+    <string name="company">Company</string>
+    <string name="shoe_size">Shoe Size</string>
+    <string name="description">Description</string>
+    <string name="our_shoes_list">our shoes list</string>
+    <string name="logout">Logout</string>
+
+
 </resources>

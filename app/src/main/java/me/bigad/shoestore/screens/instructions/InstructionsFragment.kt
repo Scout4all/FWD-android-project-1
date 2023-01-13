@@ -1,16 +1,15 @@
 package me.bigad.shoestore.screens.instructions
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import me.bigad.shoestore.R
 import me.bigad.shoestore.databinding.FragmentInstructionsBinding
-import me.bigad.shoestore.databinding.FragmentLoginBinding
-import me.bigad.shoestore.screens.login.LoginViewModel
 
 class InstructionsFragment : Fragment() {
 
@@ -23,14 +22,17 @@ class InstructionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_instructions,container,false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_instructions, container, false)
 
         viewModel = ViewModelProvider(this).get(InstructionsViewModel::class.java)
-
+        binding.shoeListButton.setOnClickListener {
+            it.findNavController()
+                .navigate(InstructionsFragmentDirections.actionInstructionsFragmentToShoesListFragment())
+        }
 
         return binding.root
-     }
-
+    }
 
 
 }

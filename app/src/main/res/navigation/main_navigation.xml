@@ -1,45 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation.xml"
     app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="me.bigad.shoestore.screens.login.LoginFragment"
-        android:label="@string/login_fragment">
+        android:label="@string/login_fragment"
+        tools:ignore="ExtraText"
+        tools:layout="@layout/fragment_login">
+        >
         <action
             android:id="@+id/action_loginFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="me.bigad.shoestore.screens.welcome.WelcomeFragment"
-        android:label="WelcomeFragment" >
+        android:label="@string/welcome"
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_instructionsFragment2"
-            app:destination="@id/instructionsFragment" />
+            app:destination="@id/instructionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/instructionsFragment"
         android:name="me.bigad.shoestore.screens.instructions.InstructionsFragment"
-        android:label="InstructionsFragment" >
+        android:label="@string/instructions"
+        tools:layout="@layout/fragment_instructions">
         <action
             android:id="@+id/action_instructionsFragment_to_shoesListFragment"
-            app:destination="@id/shoesListFragment" />
+            app:destination="@id/shoesListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/shoesListFragment"
         android:name="me.bigad.shoestore.screens.shoeslist.ShoesListFragment"
-        android:label="ShoesListFragment" >
+        android:label="@string/shoes_list"
+        tools:layout="@layout/fragment_shoes_list">
+        <action
+            android:id="@+id/action_shoesListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_shoesListFragment_to_shoeDetailsFragment"
-            app:destination="@id/shoeDetailsFragment" />
+            app:destination="@id/shoeDetailsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/shoeDetailsFragment"
         android:name="me.bigad.shoestore.screens.shoedetails.ShoeDetailsFragment"
-        android:label="ShoeDetailsFragment" >
+        android:label="@string/shoe_details"
+        tools:layout="@layout/fragment_shoe_details" >
         <action
             android:id="@+id/action_shoeDetailsFragment_to_shoesListFragment"
             app:destination="@id/shoesListFragment" />
