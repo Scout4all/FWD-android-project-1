@@ -27,10 +27,11 @@ class WelcomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_welcome, container, false)
         val loginSafeVarargs by navArgs<WelcomeFragmentArgs>()
 
-       val welcomeViewModelFactory = WelcomeViewModelFacotry(loginSafeVarargs.email)
-        viewModel = ViewModelProvider(this,welcomeViewModelFactory).get(WelcomeViewModel::class.java)
+        val welcomeViewModelFactory = WelcomeViewModelFacotry(loginSafeVarargs.email)
+        viewModel =
+            ViewModelProvider(this, welcomeViewModelFactory).get(WelcomeViewModel::class.java)
         binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
 //ToDo pass logged in data to view model factory with safe args
 

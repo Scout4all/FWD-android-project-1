@@ -2,11 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="me.bigad.shoestore.screens.shoedetails.ShoeDetailsViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shoe_details_container"
         style="@style/container_style"
@@ -17,15 +20,15 @@
             android:id="@+id/shoe_name_label"
             style="@style/label_style"
             android:text="@string/shoe_name"
-            app:layout_constraintBaseline_toBaselineOf="@+id/email_et"
-            app:layout_constraintEnd_toStartOf="@+id/email_et"
+            app:layout_constraintBaseline_toBaselineOf="@+id/shoe_name_et"
+            app:layout_constraintEnd_toStartOf="@+id/shoe_name_et"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/email_et"
+            android:id="@+id/shoe_name_et"
             style="@style/label_style"
             android:ems="10"
             android:hint="@string/shoe_name"
@@ -41,7 +44,7 @@
             style="@style/label_style"
             android:text="@string/company"
             app:layout_constraintBaseline_toBaselineOf="@+id/shoe_company_et"
-            app:layout_constraintEnd_toStartOf="@+id/email_et"
+            app:layout_constraintEnd_toStartOf="@+id/shoe_name_et"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent" />
@@ -51,11 +54,12 @@
             style="@style/label_style"
             android:ems="10"
             android:hint="@string/company"
+
             android:inputType="textCapWords"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/shoe_name_label"
-            app:layout_constraintTop_toBottomOf="@id/email_et" />
+            app:layout_constraintTop_toBottomOf="@id/shoe_name_et" />
 
         <TextView
             android:id="@+id/shoe_size_label"
@@ -72,7 +76,8 @@
             style="@style/label_style"
             android:ems="10"
             android:hint="@string/shoe_size"
-            android:inputType="number"
+
+            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/shoe_size_label"
@@ -92,7 +97,6 @@
             android:id="@+id/shoe_description_et"
             style="@style/label_style"
             android:ems="10"
-
             android:hint="@string/description"
             android:inputType="textMultiLine"
 
@@ -101,11 +105,12 @@
             app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/shoe_description_label"
             app:layout_constraintTop_toBottomOf="@id/shoe_size_et" />
+
         <Button
             android:id="@+id/cancel_button"
             style="@style/button_style"
-            android:text="Cancel"
             android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/save_button"
             app:layout_constraintHorizontal_bias="0.5"
@@ -119,16 +124,15 @@
             android:id="@+id/save_button"
             style="@style/button_style"
             android:text="@string/save"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1"
             app:layout_constraintBaseline_toBaselineOf="@+id/cancel_button"
 
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+
             app:layout_constraintStart_toEndOf="@+id/cancel_button"
             app:layout_constraintTop_toBottomOf="@id/shoe_description_et"
-            />
+            app:layout_constraintVertical_bias="1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="me.bigad.shoestore.screens.instructions.InstructionsViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/instructions_container"
         style="@style/container_style"
@@ -29,15 +31,14 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_small"
             app:layout_constraintBottom_toTopOf="@id/shoe_list_button"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/instructions_title_text">
 
 
             <TextView
                 android:id="@+id/instructions_message"
                 style="@style/body_text_style"
-
 
 
                 android:text="@string/instructions_messages"

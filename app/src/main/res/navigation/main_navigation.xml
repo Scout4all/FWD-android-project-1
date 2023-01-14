@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation.xml"
-    app:startDestination="@id/shoesListFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -57,6 +57,7 @@
         <action
             android:id="@+id/action_shoesListFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_shoesListFragment_to_shoeDetailsFragment"
@@ -70,9 +71,11 @@
         android:id="@+id/shoeDetailsFragment"
         android:name="me.bigad.shoestore.screens.shoedetails.ShoeDetailsFragment"
         android:label="@string/shoe_details"
-        tools:layout="@layout/fragment_shoe_details" >
+        tools:layout="@layout/fragment_shoe_details">
         <action
             android:id="@+id/action_shoeDetailsFragment_to_shoesListFragment"
-            app:destination="@id/shoesListFragment" />
+            app:destination="@id/shoesListFragment"
+            app:popUpTo="@id/shoesListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

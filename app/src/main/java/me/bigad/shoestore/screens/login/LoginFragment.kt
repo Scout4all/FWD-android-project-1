@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import me.bigad.shoestore.R
 import me.bigad.shoestore.databinding.FragmentLoginBinding
+import me.bigad.shoestore.model.UserSessionModel
 import timber.log.Timber
 
 class LoginFragment : Fragment() {
@@ -39,12 +40,14 @@ class LoginFragment : Fragment() {
             }
 
         }
+
         binding.newAccountButton.setOnClickListener {
-            var email = binding.emailEt.text.toString()
-            var password = binding.passwordEt.text.toString()
+            val email = binding.emailEt.text.toString()
+            val password = binding.passwordEt.text.toString()
             if (viewModel.createUser(email, password)) {
                 it.findNavController()
                     .navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(email))
+                UserSessionModel.getInstance().loggedUser = email
             }
 
         }
@@ -53,16 +56,16 @@ class LoginFragment : Fragment() {
         viewModel.stateMessage.observe(viewLifecycleOwner, Observer { errorState ->
             Timber.w(errorState.toString())
             if (errorState.hasError) {
-                if (errorState.input == "email") {
-                    binding.emailEt.setError(errorState.message)
+                if (!errorState.errors.get(viewModel.emailHasError).isNullOrEmpty()) {
+                    binding.emailEt.error = errorState.errors.get(viewModel.emailHasError).toString()
                 }
-                if (errorState.input == "password") {
-                    binding.passwordEt.setError(errorState.message)
+                if (!errorState.errors.get(viewModel.passwordHasError).isNullOrEmpty()) {
+                    binding.passwordEt.error = errorState.errors.get(viewModel.passwordHasError).toString()
                 }
 
             } else {
-                binding.emailEt.setError(null)
-                binding.passwordEt.setError(null)
+                binding.emailEt.error = null
+                binding.passwordEt.error = null
 
             }
 

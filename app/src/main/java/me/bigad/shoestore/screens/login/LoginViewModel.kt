@@ -4,22 +4,37 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import me.bigad.shoestore.model.ModelUserList
+import me.bigad.shoestore.model.ErrorState
 import me.bigad.shoestore.model.User
+import me.bigad.shoestore.model.UserSessionModel
 import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
-  val userModelList =  ModelUserList.getInstance()
-    private val _userList =  userModelList.userList
+
+    //retrive users from users model
+    val userSessionModel = UserSessionModel.getInstance()
+    private val _userList = userSessionModel.userList
     val userList: LiveData<List<User>>
         get() = _userList
+
+    // input error checking
     private val _stateMessage = MutableLiveData<ErrorState>()
     val stateMessage: LiveData<ErrorState>
         get() = _stateMessage
+
+    //Init error State
     var stateObject = ErrorState(true)
 
-//validate user input data and check credentials
-private fun validateData(email: String, password: String, isLogin: Boolean = true)  {
+    //error names and messages
+    val emailHasError: String = "email"
+    val emailErrors: ArrayList<String> = ArrayList()
+    val passwordHasError: String = "password"
+    val passwordErrors: ArrayList<String> = ArrayList()
+
+    //validate user input data and check credentials
+    private fun validateData(email: String, password: String, isLogin: Boolean = true) {
+        passwordErrors.clear()
+        emailErrors.clear()
         val isUserExists: Boolean = _userList.value?.any { user ->
             user.email == email
         } == true
@@ -28,65 +43,76 @@ private fun validateData(email: String, password: String, isLogin: Boolean = tru
         } == true
         if (!email.isValidEmail()) {
             stateObject.hasError = true
-            stateObject.message = "email is empty or not correct"
-            stateObject.input =  "email"
+            emailErrors.add("email is empty or not correct")
+            stateObject.errors.put(emailHasError, emailErrors)
+        } else {
+            stateObject.hasError = false
+        }
 
-
-        } else if (!password.isValidPassword()) {
+        if (!password.isValidPassword()) {
             stateObject.hasError = true
-            stateObject.message = "password is empty"
-            stateObject.input =  "password"
-
-        } else if (isLogin) {
+            passwordErrors.add("password is empty")
+            stateObject.errors.put(passwordHasError, passwordErrors)
+        } else {
+            stateObject.hasError = false
+        }
+        if (isLogin) {
             if (!isUserExists) {
                 stateObject.hasError = true
-                stateObject.message = "user dose not exists create new user"
-                stateObject.input =  "email"
+                emailErrors.add("user dose not exists create new user")
+                stateObject.errors.put(emailHasError, emailErrors)
 
-            } else if(!isUserCredentialTrue){
-                stateObject.hasError = true
-            stateObject.message = "password you have entered is not correct"
-            stateObject.input = "password"
-            _stateMessage.value = stateObject
-            }else{
-                stateObject.hasError = false
+
+            } else {
+                if (!isUserCredentialTrue) {
+                    stateObject.hasError = true
+                    passwordErrors.add("password you have entered is not correct")
+                    stateObject.errors.put(passwordHasError, passwordErrors)
+
+                    _stateMessage.value = stateObject
+                } else {
+                    stateObject.hasError = false
+
+                }
 
             }
-        }else if(!isLogin){
+
+        }
+        if (!isLogin) {
             if (isUserExists) {
                 stateObject.hasError = true
-                stateObject.message = "email is exists try to login or use different email"
-                stateObject.input =  "email"
+                emailErrors.add("email is exists try to login or use different email")
+                stateObject.errors.put(emailHasError, emailErrors)
 
-            }else{
+
+            } else {
                 stateObject.hasError = false
 
             }
-        }else {
-            stateObject.hasError = false
-
         }
         _stateMessage.value = stateObject
 
     }
+
     //login method
-    fun login(email: String, password: String) :Boolean{
+    fun login(email: String, password: String): Boolean {
         validateData(email, password)
-        if(_stateMessage.value?.hasError==false){
-            userModelList.loggedUser.value = User(email,password)
+        if (_stateMessage.value?.hasError == false) {
+            userSessionModel.loggedUser = email
             return true
         }
 
         return false
     }
+
     //create new user to login to app
     fun createUser(email: String, password: String): Boolean {
         validateData(email, password, false)
         Timber.w(stateMessage.value.toString())
 
-        if(stateMessage.value?.hasError==false){
+        if (stateMessage.value?.hasError == false) {
             val newUser = User(email, password)
-            userModelList.loggedUser.value = newUser
+            userSessionModel.loggedUser = email
             _userList.value = _userList.value?.plus(newUser) ?: listOf(newUser)
             return true
         }
@@ -103,8 +129,4 @@ private fun validateData(email: String, password: String, isLogin: Boolean = tru
 
 }
 
-data class ErrorState(
-    var hasError: Boolean = true,
-    var message: String = "",
-    var input: String = ""
-)
+
