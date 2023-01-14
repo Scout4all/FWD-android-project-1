@@ -75,8 +75,7 @@
             android:id="@+id/shoe_size_et"
             style="@style/label_style"
             android:ems="10"
-            android:hint="@string/shoe_size"
-
+            android:hint="@string/shoe_size_hint"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"

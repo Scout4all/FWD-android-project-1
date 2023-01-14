@@ -8,14 +8,16 @@
     <string name="welcome_message">Welcome to shoes app</string>
     <string name="welcome_body">you have been logged in successfully
         \n It is great to see you again
-        \n <font color="green"> %s </font> </string>
+        \n <font color="green"> %1$s  </font> </string>
     <string name="instructions_messages">
         • Login with your email address and password or create account \n
         • Move To Shoe list screen \n
         • you can see all added shoes from shoe list screen \n
         • you can add new shoe from add shoe button \n
+        • Delete shoe from shoe list \n
     </string>
-    <string name="email_et_hint">Email@domain.com</string>
+    <string name="email_et_hint">a@b.c</string>
+    <string name="password_et_hint">123</string>
     <string name="password_label">Password</string>
     <string name="email_label">Email</string>
     <string name="login">Login</string>
@@ -24,10 +26,9 @@
     <string name="shoe_name">Shoe Name </string>
     <string name="company">Company</string>
     <string name="shoe_size">Shoe Size</string>
+    <string name="shoe_size_hint">00.00</string>
     <string name="description">Description</string>
     <string name="our_shoes_list">our shoes list</string>
     <string name="logout">Logout</string>
     <string name="no_shoes">no shoes to show please add new</string>
-
-
 </resources>

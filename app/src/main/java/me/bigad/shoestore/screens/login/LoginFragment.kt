@@ -28,8 +28,8 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        binding.emailEt.setText("a@b.me")
-        binding.passwordEt.setText("a@b.me")
+//        binding.emailEt.setText("a@b.me")
+//        binding.passwordEt.setText("a@b.me")
 
         binding.loginButton.setOnClickListener {
             val email = binding.emailEt.text.toString()

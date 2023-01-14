@@ -56,7 +56,7 @@ class LoginViewModel : ViewModel() {
         } else {
             stateObject.hasError = false
         }
-        if (isLogin) {
+        if (isLogin  && email.isValidEmail() &&password.isValidPassword() ) {
             if (!isUserExists) {
                 stateObject.hasError = true
                 emailErrors.add("user dose not exists create new user")
@@ -78,7 +78,7 @@ class LoginViewModel : ViewModel() {
             }
 
         }
-        if (!isLogin) {
+        if (!isLogin  && email.isValidEmail() &&password.isValidPassword() ) {
             if (isUserExists) {
                 stateObject.hasError = true
                 emailErrors.add("email is exists try to login or use different email")
