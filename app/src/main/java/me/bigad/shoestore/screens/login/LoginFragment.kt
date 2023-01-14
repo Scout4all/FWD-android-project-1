@@ -55,6 +55,8 @@ class LoginFragment : Fragment() {
         //observe error states passed from view model to update binding
         viewModel.stateMessage.observe(viewLifecycleOwner, Observer { errorState ->
             Timber.w(errorState.toString())
+            binding.emailEt.error = null
+            binding.passwordEt.error = null
             if (errorState.hasError) {
                 if (!errorState.errors.get(viewModel.emailHasError).isNullOrEmpty()) {
                     binding.emailEt.error = errorState.errors.get(viewModel.emailHasError).toString()
