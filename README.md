@@ -14,7 +14,7 @@ or you can create new account
 
 
 ## Features
-
+- ** created views in view list fragment is card view and constraint layout 
 - Add shoe to shoes list
 - Delete shoe from shoe list
 - Can create a user/s and login with his credentials while app is running
