@@ -4,8 +4,7 @@ import androidx.lifecycle.MutableLiveData
 
  class ModelUserList  {
     val userList = MutableLiveData<List<User>>()
-
-
+     val loggedUser = MutableLiveData<User>()
 
     init {
         val list = listOf<User>(

@@ -1,7 +1,14 @@
 package me.bigad.shoestore
 
+import android.content.Context
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -27,4 +34,5 @@ class MainActivity : AppCompatActivity() {
 
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
+
 }

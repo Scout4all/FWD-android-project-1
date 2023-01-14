@@ -27,7 +27,7 @@ class WelcomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_welcome, container, false)
         val loginSafeVarargs by navArgs<WelcomeFragmentArgs>()
 
-       var welcomeViewModelFactory = WelcomeViewModelFacotry(loginSafeVarargs.email)
+       val welcomeViewModelFactory = WelcomeViewModelFacotry(loginSafeVarargs.email)
         viewModel = ViewModelProvider(this,welcomeViewModelFactory).get(WelcomeViewModel::class.java)
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)

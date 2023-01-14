@@ -9,8 +9,8 @@ import me.bigad.shoestore.model.User
 import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
-
-    private val _userList =   ModelUserList.getInstance().userList
+  val userModelList =  ModelUserList.getInstance()
+    private val _userList =  userModelList.userList
     val userList: LiveData<List<User>>
         get() = _userList
     private val _stateMessage = MutableLiveData<ErrorState>()
@@ -73,6 +73,7 @@ private fun validateData(email: String, password: String, isLogin: Boolean = tru
     fun login(email: String, password: String) :Boolean{
         validateData(email, password)
         if(_stateMessage.value?.hasError==false){
+            userModelList.loggedUser.value = User(email,password)
             return true
         }
 
@@ -85,7 +86,7 @@ private fun validateData(email: String, password: String, isLogin: Boolean = tru
 
         if(stateMessage.value?.hasError==false){
             val newUser = User(email, password)
-
+            userModelList.loggedUser.value = newUser
             _userList.value = _userList.value?.plus(newUser) ?: listOf(newUser)
             return true
         }
