@@ -6,14 +6,14 @@
  * Developer Email : bigad@bigad.me
  */
 
-package me.bigad.shoestore.model
+package me.bigad.shoestore.utils
 
 //data class ErrorState(
 //    var hasError: Boolean = true,
 //    var message: String = "",
 //    var input: String = ""
 //)
-data class ErrorState(
+data class ValidationErrors(
     var hasError: Boolean = true,
     var errors: HashMap<String, ArrayList<String>> = HashMap()
 )

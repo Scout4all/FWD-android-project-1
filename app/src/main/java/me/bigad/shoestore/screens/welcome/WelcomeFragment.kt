@@ -38,7 +38,7 @@ class WelcomeFragment : Fragment() {
         val welcomeViewModelFactory = WelcomeViewModelFacotry(loginSafeVarargs.email)
         viewModel =
             ViewModelProvider(this, welcomeViewModelFactory).get(WelcomeViewModel::class.java)
-        binding.viewModel = viewModel
+        binding.welcomeViewModel = viewModel
         binding.lifecycleOwner = this
 
 //ToDo pass logged in data to view model factory with safe args

@@ -83,7 +83,6 @@
         <action
             android:id="@+id/action_shoeDetailsFragment_to_shoesListFragment"
             app:destination="@id/shoesListFragment"
-            app:popUpTo="@id/shoesListFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/shoesListFragment" />
     </fragment>
 </navigation>

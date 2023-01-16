@@ -14,18 +14,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import me.bigad.shoestore.R
 import me.bigad.shoestore.databinding.FragmentLoginBinding
-import me.bigad.shoestore.model.UserSessionModel
 import timber.log.Timber
 
 class LoginFragment : Fragment() {
 
     lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModel: LoginViewModel
+
+    //    private lateinit var viewModel: LoginViewModel
+    private val viewModel by viewModels<LoginViewModel>()
 
 
     override fun onCreateView(
@@ -35,56 +35,60 @@ class LoginFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-//        binding.emailEt.setText("a@b.me")
-//        binding.passwordEt.setText("a@b.me")
+        binding.loginViewModel = viewModel
+        binding.emailEt.requestFocus()
 
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailEt.text.toString()
-            val password = binding.passwordEt.text.toString()
-            if (viewModel.login(email, password)) {
-                it.findNavController()
-                    .navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(email))
+
+        viewModelObservers()
+        return binding.root
+    }
+
+    private fun viewModelObservers() {
+        viewModel.resetUserDetailsData()
+        viewModel.toWelcomeEvent.observe(viewLifecycleOwner) { toWelcomeEvent ->
+            if (toWelcomeEvent) {
+                binding.loginContainer.findNavController()
+                    .navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(viewModel.mUser.value!!.email))
             }
-
         }
 
-        binding.newAccountButton.setOnClickListener {
-            val email = binding.emailEt.text.toString()
-            val password = binding.passwordEt.text.toString()
-            if (viewModel.createUser(email, password)) {
-                it.findNavController()
-                    .navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(email))
-                UserSessionModel.getInstance().loggedUser = email
-            }
-
-        }
 
         //observe error states passed from view model to update binding
-        viewModel.stateMessage.observe(viewLifecycleOwner, Observer { errorState ->
+        viewModel.validationErrorsState.observe(viewLifecycleOwner) { errorState ->
             Timber.w(errorState.toString())
             binding.emailEt.error = null
             binding.passwordEt.error = null
             if (errorState.hasError) {
                 if (!errorState.errors.get(viewModel.emailHasError).isNullOrEmpty()) {
-                    binding.emailEt.error = errorState.errors.get(viewModel.emailHasError).toString()
+                    binding.apply {
+                        emailEt.error =
+                            errorState.errors.get(viewModel.emailHasError).toString()
+                        emailEt.requestFocus()
+                    }
+
                 }
                 if (!errorState.errors.get(viewModel.passwordHasError).isNullOrEmpty()) {
-                    binding.passwordEt.error = errorState.errors.get(viewModel.passwordHasError).toString()
+                    binding.apply {
+                        passwordEt.error =
+                            errorState.errors.get(viewModel.passwordHasError).toString()
+                        passwordEt.requestFocus()
+                    }
+
                 }
 
             } else {
-                binding.emailEt.error = null
-                binding.passwordEt.error = null
+                binding.apply {
+                    emailEt.error = null
+                    emailEt.clearFocus()
+                    passwordEt.error = null
+                    passwordEt.clearFocus()
+                }
 
             }
 
-        })
+        }
 
-        viewModel.userList.observe(viewLifecycleOwner, Observer { it ->
-            Timber.w(it.toString())
-        })
-        return binding.root
+
     }
 
 }

@@ -47,8 +47,6 @@
             <TextView
                 android:id="@+id/instructions_message"
                 style="@style/body_text_style"
-
-
                 android:text="@string/instructions_messages"
 
                 app:layout_constraintEnd_toEndOf="parent" />

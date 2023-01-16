@@ -12,27 +12,22 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import me.bigad.shoestore.model.ErrorState
+import me.bigad.shoestore.utils.ValidationErrors
 import me.bigad.shoestore.model.User
 import me.bigad.shoestore.model.UserSessionModel
 import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
 
-    //retrive users from users model
+    //retrieve users from users model
     val userSessionModel = UserSessionModel.getInstance()
-    private val _userList = userSessionModel.userList
-    val userList: LiveData<List<User>>
-        get() = _userList
+    val mUser = MutableLiveData<User?>()
 
     // input error checking
-    private val _stateMessage = MutableLiveData<ErrorState>()
-    val stateMessage: LiveData<ErrorState>
-        get() = _stateMessage
-
+    private val _validationErrorsState = MutableLiveData<ValidationErrors>()
+    val validationErrorsState: LiveData<ValidationErrors> = _validationErrorsState
     //Init error State
-    var stateObject = ErrorState(true)
-
+    var validationErrors = ValidationErrors(true)
     //error names and messages
     val emailHasError: String = "email"
     val emailErrors: ArrayList<String> = ArrayList()
@@ -40,100 +35,110 @@ class LoginViewModel : ViewModel() {
     val passwordErrors: ArrayList<String> = ArrayList()
 
     //validate user input data and check credentials
-    private fun validateData(email: String, password: String, isLogin: Boolean = true) {
-        passwordErrors.clear()
-        emailErrors.clear()
-        val isUserExists: Boolean = _userList.value?.any { user ->
+    private fun validateData(vEmail: String , vPassword: String, isLogin: Boolean = true) {
+        val email = vEmail.trim()
+        val password =  vPassword.trim()
+
+        validationErrors.hasError = true
+        validationErrors.errors.get(emailHasError)?.clear()
+        validationErrors.errors.get(passwordHasError)?.clear()
+        validationErrors.errors.clear()
+
+
+
+        val isUserExists: Boolean = userSessionModel.userList.value?.any { user ->
             user.email == email
         } == true
-        val isUserCredentialTrue: Boolean = _userList.value?.any { user ->
+        val isUserCredentialTrue: Boolean = userSessionModel.userList.value?.any { user ->
             user.email == email && user.password == password
         } == true
         if (!email.isValidEmail()) {
-            stateObject.hasError = true
+
             emailErrors.add("email is empty or not correct")
-            stateObject.errors.put(emailHasError, emailErrors)
-        } else {
-            stateObject.hasError = false
+            validationErrors.errors.put(emailHasError, emailErrors)
         }
-
         if (!password.isValidPassword()) {
-            stateObject.hasError = true
+
             passwordErrors.add("password is empty")
-            stateObject.errors.put(passwordHasError, passwordErrors)
-        } else {
-            stateObject.hasError = false
+            validationErrors.errors.put(passwordHasError, passwordErrors)
         }
-        if (isLogin  && email.isValidEmail() &&password.isValidPassword() ) {
-            if (!isUserExists) {
-                stateObject.hasError = true
-                emailErrors.add("user dose not exists create new user")
-                stateObject.errors.put(emailHasError, emailErrors)
+        if (isLogin) {
+           if(email.isValidEmail() &&password.isValidPassword() ) {
+               if (!isUserExists) {
+
+                   emailErrors.add("user dose not exists create new user")
+                   validationErrors.errors.put(emailHasError, emailErrors)
+               } else {
+                   if (!isUserCredentialTrue) {
+
+                       passwordErrors.add("password you have entered is not correct")
+                       validationErrors.errors.put(passwordHasError, passwordErrors)
 
 
-            } else {
-                if (!isUserCredentialTrue) {
-                    stateObject.hasError = true
-                    passwordErrors.add("password you have entered is not correct")
-                    stateObject.errors.put(passwordHasError, passwordErrors)
+                   }
 
-                    _stateMessage.value = stateObject
-                } else {
-                    stateObject.hasError = false
+               }
+           }
+
+        }else{
+            if ( email.isValidEmail() &&password.isValidPassword() ) {
+                if (isUserExists) {
+
+                    emailErrors.add("email is exists try to login or use different email")
+                    validationErrors.errors.put(emailHasError, emailErrors)
 
                 }
-
-            }
-
-        }
-        if (!isLogin  && email.isValidEmail() &&password.isValidPassword() ) {
-            if (isUserExists) {
-                stateObject.hasError = true
-                emailErrors.add("email is exists try to login or use different email")
-                stateObject.errors.put(emailHasError, emailErrors)
-
-
-            } else {
-                stateObject.hasError = false
-
             }
         }
-        _stateMessage.value = stateObject
+
+
+        if(validationErrors.errors.size == 0){
+            validationErrors.hasError=false
+        }
+        Timber.e(validationErrors.errors.toString())
+        _validationErrorsState.value = validationErrors
 
     }
 
     //login method
-    fun login(email: String, password: String): Boolean {
-        validateData(email, password)
-        if (_stateMessage.value?.hasError == false) {
-            userSessionModel.loggedUser = email
-            return true
+    fun login() {
+        Timber.w(mUser.value.toString())
+        mUser.value?.let { validateData(it.email, it.password) }
+        if (_validationErrorsState.value?.hasError == false) {
+            userSessionModel.loggedUser = mUser.value?.email ?: ""
+            toWelcomeEvent.value = true
         }
 
-        return false
+
     }
 
     //create new user to login to app
-    fun createUser(email: String, password: String): Boolean {
-        validateData(email, password, false)
-        Timber.w(stateMessage.value.toString())
+    fun createUser()  {
+        mUser.value?.let { validateData(it.email, it.password,false) }
+        Timber.w(validationErrorsState.value.toString())
 
-        if (stateMessage.value?.hasError == false) {
-            val newUser = User(email, password)
-            userSessionModel.loggedUser = email
-            _userList.value = _userList.value?.plus(newUser) ?: listOf(newUser)
-            return true
+        if (validationErrorsState.value?.hasError == false) {
+            val newUser :User = mUser.value!!
+
+            userSessionModel.userList.value =  userSessionModel.userList.value?.plus(newUser) ?: listOf(newUser)
+            toWelcomeEvent.value = true
         }
 
 
 
-        return false
+
     }
 
     fun CharSequence?.isValidEmail() =
         !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     fun CharSequence?.isValidPassword() = !isNullOrEmpty()
+    fun resetUserDetailsData() {
+        validationErrors.hasError = true
+        validationErrors.errors.clear()
+        mUser.value = User()
+    }
+    val toWelcomeEvent = MutableLiveData(false)
 
 }
 

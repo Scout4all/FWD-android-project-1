@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2023.
   ~ Developed by : Bigad Aboubakr
   ~ Developer website : http://bigad.me
@@ -13,15 +12,16 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="me.bigad.shoestore.screens.shoedetails.ShoeDetailsViewModel" />
-    </data>
 
+        <variable
+            name="shoeDetailsViewModel"
+            type="me.bigad.shoestore.MainActivityViewModel" />
+
+    </data>
+    <!--i have used ConstraintLayout to have better ui performance and child views sizing -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shoe_details_container"
         style="@style/container_style"
-
         tools:context=".screens.shoedetails.ShoeDetailsFragment">
 
         <TextView
@@ -41,6 +41,7 @@
             android:ems="10"
             android:hint="@string/shoe_name"
             android:inputType="textCapWords"
+            android:text="@={shoeDetailsViewModel.mShoe.name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="7"
@@ -64,6 +65,7 @@
             android:hint="@string/company"
 
             android:inputType="textCapWords"
+            android:text="@={shoeDetailsViewModel.mShoe.company}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/shoe_name_label"
@@ -85,6 +87,7 @@
             android:ems="10"
             android:hint="@string/shoe_size_hint"
             android:inputType="numberDecimal"
+            android:text="@={``+shoeDetailsViewModel.mShoe.size}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/shoe_size_label"
@@ -106,8 +109,8 @@
             android:ems="10"
             android:hint="@string/description"
             android:inputType="textMultiLine"
-
             android:lines="3"
+            android:text="@={shoeDetailsViewModel.mShoe.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/shoe_description_label"
@@ -117,26 +120,25 @@
             android:id="@+id/cancel_button"
             style="@style/button_style"
             android:backgroundTint="@android:color/holo_red_dark"
-            android:text="Cancel"
+            android:onClick="@{() -> shoeDetailsViewModel.onBack()}"
+            android:text="@string/cancel_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/save_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shoe_description_et"
-
-            />
+            tools:targetApi="lollipop" />
 
         <Button
             android:id="@+id/save_button"
             style="@style/button_style"
+            android:onClick="@{()->shoeDetailsViewModel.onSaveShoe()}"
             android:text="@string/save"
             app:layout_constraintBaseline_toBaselineOf="@+id/cancel_button"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-
             app:layout_constraintStart_toEndOf="@+id/cancel_button"
             app:layout_constraintTop_toBottomOf="@id/shoe_description_et"
             app:layout_constraintVertical_bias="1" />

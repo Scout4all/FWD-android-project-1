@@ -10,5 +10,8 @@ package me.bigad.shoestore.model
 
 
 data class Shoe(
-    var name: String, var size: List<Double>, var company: String, var description: String
+    var name: String = "",
+    var size: Double = 0.0,
+    var company: String = "",
+    var description: String = ""
 )

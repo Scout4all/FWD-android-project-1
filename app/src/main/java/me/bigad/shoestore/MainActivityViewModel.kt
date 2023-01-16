@@ -12,107 +12,113 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import me.bigad.shoestore.model.Shoe
+import me.bigad.shoestore.utils.ValidationErrors
 import timber.log.Timber
 
 class MainActivityViewModel : ViewModel() {
-    //ToDo make activity view model hold shoes
+
     val shoesList = MutableLiveData<List<Shoe>>()
-    var shoesListArray = ArrayList<Shoe>()
-    private val _stateMessage = MutableLiveData<ErrorStateNew>()
-    val stateMessage: LiveData<ErrorStateNew>
-        get() = _stateMessage
-    var stateObject = ErrorStateNew(true)
+    private var shoesListArray = ArrayList<Shoe>()
+    private val _validationErrorsState = MutableLiveData<ValidationErrors>()
+    val validationErrorsState: LiveData<ValidationErrors> = _validationErrorsState
+
+
+    val mShoe = MutableLiveData<Shoe>()
+
+
+    private var validationErrors = ValidationErrors(true)
     val shoeNameInput = "shoe"
-    val shoeNameInputErrors: ArrayList<String> = ArrayList()
+    private val shoeNameInputErrors: ArrayList<String> = ArrayList()
     val shoeSizeInput = "size"
-    val shoeSizeInputErrors: ArrayList<String> = ArrayList()
+    private val shoeSizeInputErrors: ArrayList<String> = ArrayList()
     val shoeCompanyInput = "company"
-    val shoeCompanyInputErrors: ArrayList<String> = ArrayList()
+    private val shoeCompanyInputErrors: ArrayList<String> = ArrayList()
 
     init {
-        shoesListArray = arrayListOf(
+
+        //load dummy list uncomment next line
+        shoesListArray  = inflateShoeList()
+
+        shoesList.value = this.shoesListArray
+
+    }
+
+    //dummy list
+    private fun inflateShoeList(): ArrayList<Shoe> {
+        return arrayListOf(
             Shoe(
                 "Nature Three Mahogany Leather",
-                listOf(08.00, 09.00, 09.50, 10.00, 10.30),
+                08.00,
                 "Clarks",
                 "This classic silhouette last is brought right up-to-date with the addition of state-of-the-art breathable Active Air underfoot cushioning. The last word in comfort is complemented by a rich leather upper and sheepskin lining. A rubber sole adds grip and durability."
             ),
             Shoe(
                 "Court Lite Wally Dark Olive Suede",
-                listOf(08.00, 09.00, 09.50, 10.00, 10.30),
+                09.50,
                 "Clarks",
-                "Our instantly recognisable Wallabee silhouette gets a sports injection with an athletic-inspired sole for casual style. This super-lightweight profile is built on the original Wallabee last for a feel-good fit, boosted with innovative cushioning for 21st century comfort.\n" +
-                        "Responsibly sourced premium dark olive suede upper\n" +
-                        "Innovative MI-X technology combines a high rebound, lightweight part-recycled EVA midsole with a multi-density, contoured, breathable footbed for ultimate support\n" +
-                        "Footbed is removable for customisable comfort\n" +
-                        "Durable crepe-effect part-recycled rubber sole gives grip"
+                "Our instantly recognisable Wallabee silhouette gets a sports injection with an athletic-inspired sole for casual style. This super-lightweight profile is built on the original Wallabee last for a feel-good fit, boosted with innovative cushioning for 21st century comfort.\n" + "Responsibly sourced premium dark olive suede upper\n" + "Innovative MI-X technology combines a high rebound, lightweight part-recycled EVA midsole with a multi-density, contoured, breathable footbed for ultimate support\n" + "Footbed is removable for customisable comfort\n" + "Durable crepe-effect part-recycled rubber sole gives grip"
             ),
         )
-
-        //load view with dummy data
-        shoesList.value = shoesListArray
-
-    }
-
-    fun onAddShoe(shoe: Shoe): Boolean {
-        validateAddShoe(shoe)
-        if (!stateObject.hasError) {
-            shoesListArray.add(shoe)
-            shoesList.value = shoesListArray
-            return true
-        }
-
-        Timber.w(shoesList.value.toString())
-        return false
     }
 
     fun onDelete(shoe: Shoe): Boolean {
-
         shoesListArray.remove(shoe)
         shoesList.value = shoesListArray
-
-
         return true
     }
+    private fun CharSequence?.isEntered() = isNullOrEmpty()
+    private fun validateAddShoe(shoe: Shoe) {
 
-    fun validateAddShoe(shoe: Shoe) {
-        shoeNameInputErrors.clear()
-        shoeCompanyInputErrors.clear()
-        shoeSizeInputErrors.clear()
+        validationErrors.errors.clear()
+        validationErrors.hasError = true
         if (shoe.name.isEntered()) {
-            stateObject.hasError = true
             shoeNameInputErrors.add("shoe name should not be empty")
-
-            stateObject.errors.put(shoeNameInput, shoeNameInputErrors)
-
-        } else {
-            stateObject.hasError = false
+            validationErrors.errors.put(shoeNameInput, shoeNameInputErrors)
         }
+
         if (shoe.company.isEntered()) {
-            stateObject.hasError = true
             shoeCompanyInputErrors.add("shoe company should not be empty")
-            stateObject.errors.put(shoeCompanyInput, shoeCompanyInputErrors)
-
-        } else {
-            stateObject.hasError = false
+            validationErrors.errors.put(shoeCompanyInput, shoeCompanyInputErrors)
         }
-        if (shoe.size.isEmpty() || shoe.size.get(0) == 0.0) {
-            stateObject.hasError = true
+        if (shoe.size.toString().isEntered() || shoe.size == 0.0) {
             shoeSizeInputErrors.add("shoe size should not be empty")
-            stateObject.errors.put(shoeSizeInput, shoeSizeInputErrors)
-//        stateObject.message = "shoe size should not be empty"
-//        stateObject.input =  "size"
-        } else {
-            stateObject.hasError = false
+            validationErrors.errors.put(shoeSizeInput, shoeSizeInputErrors)
         }
-        _stateMessage.value = stateObject
+
+        if(validationErrors.errors.size == 0){
+            validationErrors.hasError=false
+        }
+        _validationErrorsState.value = validationErrors
 
     }
 
-    fun CharSequence?.isEntered() = isNullOrEmpty()
+
+
+
+
+    val backEvent = MutableLiveData(false)
+    fun onBack() {
+        backEvent.value = true
+    }
+
+    fun onSaveShoe(): Boolean {
+        mShoe.value?.let { validateAddShoe(it) }
+        if (!validationErrors.hasError) {
+            mShoe.value?.let { shoesListArray.add(it) }
+            shoesList.value = shoesListArray
+            backEvent.value = true
+        }
+        Timber.w(mShoe.value.toString())
+        return validationErrors.hasError
+    }
+
+    fun resetShoeDetailsData() {
+        validationErrors.hasError = true
+        validationErrors.errors.clear()
+        mShoe.value = Shoe()
+        backEvent.value = false
+    }
 }
 
-data class ErrorStateNew(
-    var hasError: Boolean = true,
-    var errors: HashMap<String, ArrayList<String>> = HashMap()
-)
+
+

@@ -30,13 +30,16 @@
     <string name="email_label">Email</string>
     <string name="login">Login</string>
     <string name="new_account">New Account</string>
-    <string name="save">Save</string>
-    <string name="shoe_name">Shoe Name </string>
-    <string name="company">Company</string>
-    <string name="shoe_size">Shoe Size</string>
-    <string name="shoe_size_hint">00.00</string>
-    <string name="description">Description</string>
-    <string name="our_shoes_list">our shoes list</string>
-    <string name="logout">Logout</string>
-    <string name="no_shoes">no shoes to show please add new</string>
+    <string name="save" translatable="false">Save</string>
+    <string name="shoe_name" translatable="false">Shoe Name </string>
+    <string name="company" translatable="false">Company</string>
+    <string name="shoe_size" translatable="false">Shoe Size</string>
+    <string name="shoe_size_hint" translatable="false">00.00</string>
+    <string name="description" translatable="false">Description</string>
+    <string name="our_shoes_list" translatable="false">our shoes list</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="no_shoes" translatable="false">no shoes to show please add new</string>
+    <string name="add_new_shoe" translatable="false">Add new shoe</string>
+    <string name="cancel_text" translatable="false">Cancel</string>
+
 </resources>

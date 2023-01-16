@@ -12,9 +12,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="viewModel"
+            name="loginViewModel"
             type="me.bigad.shoestore.screens.login.LoginViewModel" />
     </data>
 
@@ -37,6 +36,7 @@
             android:id="@+id/email_label"
             style="@style/label_style"
             android:text="@string/email_label"
+
             app:layout_constraintEnd_toStartOf="@+id/email_et"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -50,6 +50,7 @@
             android:drawableStart="@android:drawable/sym_action_email"
             android:ems="10"
             android:hint="@string/email_et_hint"
+            android:text="@={loginViewModel.mUser.email}"
             android:inputType="textWebEmailAddress"
 
             app:layout_constraintBaseline_toBaselineOf="@+id/email_label"
@@ -75,6 +76,7 @@
             android:drawableStart="@android:drawable/ic_lock_lock"
             android:ems="10"
             android:hint="@string/password_et_hint"
+            android:text="@={loginViewModel.mUser.password}"
             android:inputType="textPassword"
             app:layout_constraintBaseline_toBaselineOf="@+id/password_label"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +92,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/login_button"
             app:layout_constraintHorizontal_bias="0.5"
+            android:onClick="@{()->loginViewModel.createUser()}"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_label" />
@@ -98,6 +101,7 @@
             android:id="@+id/login_button"
             style="@style/button_style"
             android:text="@string/login"
+            android:onClick="@{()->loginViewModel.login()}"
             app:layout_constraintBaseline_toBaselineOf="@+id/new_account_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

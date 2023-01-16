@@ -12,9 +12,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="viewModel"
+            name="welcomeViewModel"
             type="me.bigad.shoestore.screens.welcome.WelcomeViewModel" />
     </data>
 
@@ -37,8 +36,7 @@
         <TextView
             android:id="@+id/welcome_message"
             style="@style/body_text_style"
-
-            android:text="@{@string/welcome_body(viewModel.email)}"
+            android:text="@{@string/welcome_body(welcomeViewModel.email)}"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@id/instructions_button"
             app:layout_constraintEnd_toEndOf="parent"
