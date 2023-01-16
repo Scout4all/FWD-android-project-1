@@ -23,7 +23,7 @@ or you can create new account
 
 ## Screenshots
 
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041353.png?raw=true)
+![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041353.png?raw=true){ width=50% }
 ![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041436.png?raw=true)
 ![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041500.png?raw=true)
 ![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041510.png?raw=true)
