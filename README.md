@@ -23,15 +23,9 @@ or you can create new account
 
 ## Screenshots
 
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041353.png?raw=true){ width=50% }
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041436.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041500.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041510.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041529.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041937.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041557.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041855.png?raw=true)
-![App Screenshot](https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041919.png?raw=true)
+<img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041353.png?raw=true" style="width:200px;" /> <img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041436.png?raw=true" style="width:200px;" /> <img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041500.png?raw=true" style="width:200px;" /> <img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041510.png?raw=true" style="width:200px;" />
+
+<img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041937.png?raw=true" style="width:200px;" /> <img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041557.png?raw=true" style="width:200px;" /> <img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041855.png?raw=true" style="width:200px;" /> <img src="https://github.com/Scout4all/FWD-android-project-1/blob/main/screenshots/Screenshot_20230116_041919.png?raw=true" style="width:200px;" />
 
 
 
