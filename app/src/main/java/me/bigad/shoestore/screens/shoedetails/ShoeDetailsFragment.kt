@@ -54,7 +54,7 @@ class ShoeDetailsFragment : Fragment() {
                 }
                 if (!errorState.errors[appSharedViewModel.shoeCompanyInput].isNullOrEmpty()) {
                     binding.shoeCompanyEt.error =
-                        errorState.errors[appSharedViewModel.shoeSizeInput].toString()
+                        errorState.errors[appSharedViewModel.shoeCompanyInput].toString()
                     binding.shoeCompanyEt.requestFocus()
                 }
                 if (!errorState.errors[appSharedViewModel.shoeSizeInput].isNullOrEmpty()) {

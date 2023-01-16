@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModel
 import me.bigad.shoestore.utils.ValidationErrors
 import me.bigad.shoestore.model.User
 import me.bigad.shoestore.model.UserSessionModel
-import timber.log.Timber
+
 
 class LoginViewModel : ViewModel() {
 
@@ -38,7 +38,7 @@ class LoginViewModel : ViewModel() {
     private fun validateData(vEmail: String , vPassword: String, isLogin: Boolean = true) {
         val email = vEmail.trim()
         val password =  vPassword.trim()
-
+        //reset errors
         validationErrors.hasError = true
         validationErrors.errors.get(emailHasError)?.clear()
         validationErrors.errors.get(passwordHasError)?.clear()
@@ -53,40 +53,31 @@ class LoginViewModel : ViewModel() {
             user.email == email && user.password == password
         } == true
         if (!email.isValidEmail()) {
-
             emailErrors.add("email is empty or not correct")
             validationErrors.errors.put(emailHasError, emailErrors)
         }
         if (!password.isValidPassword()) {
-
             passwordErrors.add("password is empty")
             validationErrors.errors.put(passwordHasError, passwordErrors)
         }
         if (isLogin) {
            if(email.isValidEmail() &&password.isValidPassword() ) {
                if (!isUserExists) {
-
                    emailErrors.add("user dose not exists create new user")
                    validationErrors.errors.put(emailHasError, emailErrors)
                } else {
                    if (!isUserCredentialTrue) {
-
                        passwordErrors.add("password you have entered is not correct")
                        validationErrors.errors.put(passwordHasError, passwordErrors)
-
-
                    }
-
                }
            }
 
         }else{
             if ( email.isValidEmail() &&password.isValidPassword() ) {
                 if (isUserExists) {
-
                     emailErrors.add("email is exists try to login or use different email")
                     validationErrors.errors.put(emailHasError, emailErrors)
-
                 }
             }
         }
@@ -95,27 +86,22 @@ class LoginViewModel : ViewModel() {
         if(validationErrors.errors.size == 0){
             validationErrors.hasError=false
         }
-        Timber.e(validationErrors.errors.toString())
         _validationErrorsState.value = validationErrors
-
     }
 
     //login method
     fun login() {
-        Timber.w(mUser.value.toString())
         mUser.value?.let { validateData(it.email, it.password) }
         if (_validationErrorsState.value?.hasError == false) {
             userSessionModel.loggedUser = mUser.value?.email ?: ""
             toWelcomeEvent.value = true
         }
-
-
     }
 
     //create new user to login to app
     fun createUser()  {
         mUser.value?.let { validateData(it.email, it.password,false) }
-        Timber.w(validationErrorsState.value.toString())
+
 
         if (validationErrorsState.value?.hasError == false) {
             val newUser :User = mUser.value!!
@@ -123,10 +109,6 @@ class LoginViewModel : ViewModel() {
             userSessionModel.userList.value =  userSessionModel.userList.value?.plus(newUser) ?: listOf(newUser)
             toWelcomeEvent.value = true
         }
-
-
-
-
     }
 
     fun CharSequence?.isValidEmail() =

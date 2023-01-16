@@ -16,7 +16,9 @@
             name="viewModel"
             type="me.bigad.shoestore.screens.shoeslist.ShoesListViewModel" />
     </data>
-<!-- ConstraintLayout to better positioning of floating action button and other views-->
+<!-- ConstraintLayout to better positioning of floating
+ action button and other views and to have better ui performance
+ and child views sizing and responsive design  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shoes_list_container"
         style="@style/container_style"
@@ -77,6 +79,8 @@ to add subview that will be shown below each others-->
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/margin_small">
+                <!--I have used ConstraintLayout when add views using koltlin
+                 for responsive ui design and because i have complex data to sho  -->
 
             </LinearLayout>
         </ScrollView>

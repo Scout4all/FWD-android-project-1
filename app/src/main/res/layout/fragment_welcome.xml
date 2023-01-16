@@ -17,6 +17,8 @@
             type="me.bigad.shoestore.screens.welcome.WelcomeViewModel" />
     </data>
 
+    <!--I have used ConstraintLayout to have better ui performance
+     and child views sizing and responsive design  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/welcome_container"
         style="@style/container_style"

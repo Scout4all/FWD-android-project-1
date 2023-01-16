@@ -16,7 +16,7 @@
             name="loginViewModel"
             type="me.bigad.shoestore.screens.login.LoginViewModel" />
     </data>
-
+    <!--I have used ConstraintLayout to have better ui performance and child views sizing -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_container"
         style="@style/container_style"

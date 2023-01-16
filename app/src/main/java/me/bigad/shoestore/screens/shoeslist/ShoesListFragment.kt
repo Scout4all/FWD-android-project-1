@@ -102,7 +102,7 @@ class ShoesListFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-
+//create views that will show list of shoes
     private fun createViews(shoe: Shoe): View {
 
 

@@ -68,7 +68,9 @@ class MainActivityViewModel : ViewModel() {
     }
     private fun CharSequence?.isEntered() = isNullOrEmpty()
     private fun validateAddShoe(shoe: Shoe) {
-
+        validationErrors.errors.get(shoeCompanyInput)?.clear()
+        validationErrors.errors.get(shoeNameInput)?.clear()
+        validationErrors.errors.get(shoeSizeInput)?.clear()
         validationErrors.errors.clear()
         validationErrors.hasError = true
         if (shoe.name.isEntered()) {
@@ -81,7 +83,7 @@ class MainActivityViewModel : ViewModel() {
             validationErrors.errors.put(shoeCompanyInput, shoeCompanyInputErrors)
         }
         if (shoe.size.toString().isEntered() || shoe.size == 0.0) {
-            shoeSizeInputErrors.add("shoe size should not be empty")
+            shoeSizeInputErrors.add("shoe size should not be empty or not = 0.0 ")
             validationErrors.errors.put(shoeSizeInput, shoeSizeInputErrors)
         }
 
@@ -108,7 +110,7 @@ class MainActivityViewModel : ViewModel() {
             shoesList.value = shoesListArray
             backEvent.value = true
         }
-        Timber.w(mShoe.value.toString())
+
         return validationErrors.hasError
     }
 
